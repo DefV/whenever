@@ -5,6 +5,10 @@ begin
   load 'Rakefile'
 rescue LoadError
   nil
+rescue Errno::ENOENT
+  # Looks like we might be in Bundler with Rails as source, require Rakefile in current dir
+  load './Rakefile'
+  require 'active_support/all'
 end
 
 # If Rails' rakefile was loaded than so was active_support, but
